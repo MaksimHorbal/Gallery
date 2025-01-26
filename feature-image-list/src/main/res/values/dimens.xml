@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_item_height">300dp</dimen>
+    <dimen name="image_item_horizontal_margin">8dp</dimen>
+    <dimen name="image_item_vertical_margin">8dp</dimen>
+    <dimen name="image_item_corner_radius">8dp</dimen>
+</resources>
