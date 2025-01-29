@@ -26,7 +26,7 @@ class ImageDetailsViewModel @AssistedInject constructor(
         viewModelScope.launch {
             runCatching { repository.loadImageDetails(imageId) }
                 .onSuccess { _state.value = ImageDetailsState.Loaded(it) }
-                .onFailure { _state.value = ImageDetailsState.Failure(it) }
+                .onFailure { _state.value = ImageDetailsState.Failure }
         }
     }
 
