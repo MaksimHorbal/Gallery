@@ -12,7 +12,7 @@ class ImageListAdapter(
         ImageViewHolder.inflate(parent, onClick)
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val image = peek(position)
+        val image = getItem(position)
         if (image != null) {
             holder.bind(image)
         }
