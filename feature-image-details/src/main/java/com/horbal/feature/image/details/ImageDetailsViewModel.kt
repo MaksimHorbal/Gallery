@@ -7,6 +7,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -24,9 +25,14 @@ class ImageDetailsViewModel @AssistedInject constructor(
 
     init {
         viewModelScope.launch {
-            runCatching { repository.loadImageDetails(imageId) }
-                .onSuccess { _state.value = ImageDetailsState.Loaded(it) }
-                .onFailure { _state.value = ImageDetailsState.Failure }
+            _state.value = try {
+                val details = repository.loadImageDetails(imageId)
+                ImageDetailsState.Loaded(details)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                ImageDetailsState.Failure
+            }
         }
     }
 
